@@ -25,8 +25,6 @@ def dfs(graph, start, visited=None):
         visited.add(start)
         for neighbor in graph[start]:
             dfs(graph, neighbor, visited)
-
-# Example graph
 graph = {
     'A': ['B', 'C'],
     'B': ['A', 'D', 'E'],
