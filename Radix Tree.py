@@ -1,6 +1,6 @@
 class RadixNode:
     def __init__(self):
-        self.children = {}  # key: substring, value: RadixNode
+        self.children = {}  
         self.is_end = False
 
 class RadixTree:
@@ -24,7 +24,6 @@ class RadixTree:
                     word = word[common_prefix_len:]
                     break
             else:
-                # No common prefix found
                 node.children[word] = RadixNode()
                 node.children[word].is_end = True
                 return
