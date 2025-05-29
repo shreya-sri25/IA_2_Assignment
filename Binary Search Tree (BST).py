@@ -31,7 +31,6 @@ class BST:
         else:
             return self.search(root.right, key)
 
-# Example usage
 if __name__ == "__main__":
     bst = BST()
     keys = [50, 30, 20, 40, 70, 60, 80]
@@ -40,7 +39,7 @@ if __name__ == "__main__":
         bst.root = bst.insert(bst.root, key)
 
     print("Inorder traversal of BST:")
-    bst.inorder(bst.root)  # Output should be sorted
+    bst.inorder(bst.root)  
 
     print("\nSearch for 40:", "Found" if bst.search(bst.root, 40) else "Not found")
     print("Search for 100:", "Found" if bst.search(bst.root, 100) else "Not found")
