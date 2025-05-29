@@ -3,7 +3,7 @@ class BPlusTreeNode:
         self.keys = []
         self.children = []
         self.is_leaf = is_leaf
-        self.next = None  # Used for leaf node linking
+        self.next = None  
 
 class BPlusTree:
     def __init__(self, order=3):
@@ -35,6 +35,56 @@ class BPlusTree:
     def _split_child(self, parent, index):
         node = parent.children[index]
         mid = self.order // 2
-        split_key = node.keys[mid]
 
-        right = BPlusTreeNode(is_leaf=node.i_
+        if node.is_leaf:
+            right = BPlusTreeNode(is_leaf=True)
+            right.keys = node.keys[mid:]
+            node.keys = node.keys[:mid]
+
+
+            right.next = node.next
+            node.next = right
+
+            parent.keys.insert(index, right.keys[0])
+            parent.children.insert(index + 1, right)
+        else:
+            right = BPlusTreeNode()
+            right.keys = node.keys[mid+1:]
+            right.children = node.children[mid+1:]
+            split_key = node.keys[mid]
+
+            node.keys = node.keys[:mid]
+            node.children = node.children[:mid+1]
+
+            parent.keys.insert(index, split_key)
+            parent.children.insert(index + 1, right)
+
+    def _find_index(self, keys, key):
+        for i, item in enumerate(keys):
+            if key < item:
+                return i
+        return len(keys)
+
+    def print_tree(self):
+        queue = [self.root]
+        level = 0
+        while queue:
+            print("Level", level, ": ", end="")
+            next_queue = []
+            for node in queue:
+                print(node.keys, end=" ")
+                if not node.is_leaf:
+                    next_queue.extend(node.children)
+            print()
+            queue = next_queue
+            level += 1
+
+    def print_leaves(self):
+        node = self.root
+        while not node.is_leaf:
+            node = node.children[0]
+        print("Leaves: ", end="")
+        while node:
+            print(node.keys, end=" -> ")
+            node = node.next
+        print("None")
