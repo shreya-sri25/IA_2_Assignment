@@ -5,8 +5,8 @@ def longest_palindrome(s):
     start = end = 0
 
     for i in range(len(s)):
-        len1 = expand_center(s, i, i)     # Odd length
-        len2 = expand_center(s, i, i + 1) # Even length
+        len1 = expand_center(s, i, i)     
+        len2 = expand_center(s, i, i + 1) 
         max_len = max(len1, len2)
 
         if max_len > end - start:
